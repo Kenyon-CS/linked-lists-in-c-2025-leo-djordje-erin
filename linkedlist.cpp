@@ -77,29 +77,26 @@ class LinkedList {
     }
 
     //add element in sorted order
-    bool addOrder(T value) {
+    void addOrder(T value) {
         node<T>* element = new node<T>(value);
 
         //element's value <= head's value, OR, list is empty
         if (head == nullptr || value <= head->data) {
             element->next = head;
             head = element;
-            return true;
+            return;
         }
 
         node<T>* temp = head;
 
         //element's data is > head
-        while (temp->next != nullptr) {
+        while (temp->next != nullptr && temp->next->data < value) {
             temp = temp->next;
-            if (value <= temp->next->data) {
-                element->next = temp->next;
-                temp->next = element;
-                return true;
-            }
         }
-        
-        return false;
+
+        // Insert element
+        element->next = temp->next;
+        temp->next = element;
     }
 
     // Remove first occurrence of value
