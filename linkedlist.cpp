@@ -38,21 +38,24 @@ class LinkedList {
         head = newNode;
     }
 
-    //delete head after function runs
-    node<T>* lfirst() {
+    //delete first node, then return data of first node
+    T lfirst() {
         node<T>* temp = head;
-            head = head->next;
-            return temp;
-        }
+        head = head->next;
+        T firstData = temp->data;
+        delete temp;
+        return firstData;
     }
 
-    //delete last after function runs
-    node<T>* last() {
+    //delete last node, then return its data
+    T last() {
         node<T>* temp = head;
         while (temp->next != nullptr) {
             temp = temp->next;
         }
-        return temp;
+        T lastData = temp->data;
+        delete temp;
+        return lastData;
     }
 
     //add element in sorted order
