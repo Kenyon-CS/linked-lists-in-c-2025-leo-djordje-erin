@@ -40,6 +40,10 @@ class LinkedList {
 
     //delete first node, then return data of first node
     T lfirst() {
+        if (head == nullptr) {
+            cerr << List is empty! << endl;
+            return;
+        }
         node<T>* temp = head;
         head = head->next;
         T firstData = temp->data;
@@ -49,18 +53,53 @@ class LinkedList {
 
     //delete last node, then return its data
     T last() {
+        if (head == nullptr) {
+            cerr << List is empty! << endl;
+            return;
+        }
+
+        //Head is only element:
+        if (head-> next == nullptr) {
+            T lastData = head->data;
+            delete head;
+            head = nullptr;
+            return lastData;
+        }
+
         node<T>* temp = head;
-        while (temp->next != nullptr) {
+        while (temp->next->next != nullptr) {
             temp = temp->next;
         }
-        T lastData = temp->data;
-        delete temp;
+        T lastData = temp->next->data;
+        delete temp->next;
+        temp->next = nullptr;
         return lastData;
     }
 
     //add element in sorted order
-    void addOrder() {
+    bool addOrder(T value) {
+        node<T>* element = new node<T>(value);
 
+        //element's value <= head's value, OR, list is empty
+        if (head == nullptr || value <= head->data) {
+            element->next = head;
+            head = element;
+            return true;
+        }
+
+        node<T>* temp = head;
+
+        //element's data is > head
+        while (temp->next != nullptr) {
+            temp = temp->next;
+            if (value <= temp->next->data) {
+                element->next = temp->next;
+                temp->next = element;
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     // Remove first occurrence of value
