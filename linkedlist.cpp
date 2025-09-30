@@ -38,6 +38,28 @@ class LinkedList {
         head = newNode;
     }
 
+    //delete head after function runs
+    node<T>* lfirst() {
+        node<T>* temp = head;
+            head = head->next;
+            return temp;
+        }
+    }
+
+    //delete last after function runs
+    node<T>* last() {
+        node<T>* temp = head;
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+        return temp;
+    }
+
+    //add element in sorted order
+    void addOrder() {
+
+    }
+
     // Remove first occurrence of value
     void remove(T value) {
         if (head == nullptr) return;
