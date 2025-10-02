@@ -41,8 +41,8 @@ class LinkedList {
     //delete first node, then return data of first node
     T lfirst() {
         if (head == nullptr) {
-            cerr << List is empty! << endl;
-            return;
+            cerr << "List is empty!" << endl;
+            return nullptr;
         }
         node<T>* temp = head;
         head = head->next;
@@ -54,14 +54,13 @@ class LinkedList {
     //delete last node, then return its data
     T last() {
         if (head == nullptr) {
-            cerr << List is empty! << endl;
-            return;
+            cerr << "List is empty!" << endl;
+            return nullptr;
         }
 
         //Head is only element:
         if (head-> next == nullptr) {
             T lastData = head->data;
-            delete head;
             head = nullptr;
             return lastData;
         }
@@ -71,8 +70,8 @@ class LinkedList {
             temp = temp->next;
         }
         T lastData = temp->next->data;
-        delete temp->next;
         temp->next = nullptr;
+        delete temp;
         return lastData;
     }
 
@@ -97,6 +96,7 @@ class LinkedList {
         // Insert element
         element->next = temp->next;
         temp->next = element;
+        delete element;
     }
 
     // Remove first occurrence of value
